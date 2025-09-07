@@ -10,3 +10,4 @@ Flask-Bootstrap4==4.0.2
 Python-dotenv==1.0.0
 Werkzeug==2.3.7
 SQLAlchemy==2.0.23
+gunicorn==21.2.0
