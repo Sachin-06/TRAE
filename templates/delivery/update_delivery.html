@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Update Delivery - FoodLink{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Update Delivery Status</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5>Donation Information</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <th>Food Type:</th>
+                                <td>{{ delivery.donation.food_type }}</td>
+                            </tr>
+                            <tr>
+                                <th>Quantity:</th>
+                                <td>{{ delivery.donation.quantity }}</td>
+                            </tr>
+                            <tr>
+                                <th>Pickup Location:</th>
+                                <td>{{ delivery.donation.pickup_location }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Recipient Information</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <th>Name:</th>
+                                <td>{{ delivery.recipient.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Address:</th>
+                                <td>{{ delivery.recipient.address }}</td>
+                            </tr>
+                            <tr>
+                                <th>Contact:</th>
+                                <td>{{ delivery.recipient.contact_person }} ({{ delivery.recipient.phone }})</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <form method="post" novalidate>
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.status.label }}
+                        {{ form.status(class="form-control") }}
+                        {% for error in form.status.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                    <div id="confirmation-section" style="{% if delivery.status != 'picked_up' %}display: none;{% endif %}">
+                        <div class="form-group">
+                            {{ form.confirmation_type.label }}
+                            {{ form.confirmation_type(class="form-control") }}
+                            {% for error in form.confirmation_type.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.confirmation_data.label }}
+                            {{ form.confirmation_data(class="form-control", rows=3) }}
+                            <small class="form-text text-muted">For signature, describe who signed. For photo, describe what was captured. For feedback, enter recipient's comments.</small>
+                            {% for error in form.confirmation_data.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-primary") }}
+                        <a href="{{ url_for('delivery_dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusSelect = document.getElementById('status');
+        const confirmationSection = document.getElementById('confirmation-section');
+        
+        statusSelect.addEventListener('change', function() {
+            if (this.value === 'delivered') {
+                confirmationSection.style.display = 'block';
+            } else {
+                confirmationSection.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock %}
+{% endblock %}

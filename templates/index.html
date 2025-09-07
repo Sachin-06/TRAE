@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}FoodLink - Connecting Excess Food with Those in Need{% endblock %}
+
+{% block content %}
+<div class="jumbotron animate__animated animate__fadeIn">
+    <h1 class="display-4 animate__animated animate__fadeInDown">Welcome to FoodLink</h1>
+    <p class="lead animate__animated animate__fadeIn animate__delay-1s">Connecting excess food with those in need - reducing waste and fighting hunger together.</p>
+    <hr class="my-4">
+    <p class="animate__animated animate__fadeIn animate__delay-2s">Join our community as a donor, delivery volunteer, or recipient organization.</p>
+    {% if not current_user.is_authenticated %}
+        <a class="btn btn-primary btn-lg animate__animated animate__pulse animate__infinite animate__slower" href="{{ url_for('register') }}" role="button">Get Started</a>
+        <a class="btn btn-outline-primary btn-lg animate__animated animate__fadeIn animate__delay-3s" href="{{ url_for('login') }}" role="button">Login</a>
+    {% else %}
+        <a class="btn btn-primary btn-lg animate__animated animate__pulse animate__infinite animate__slower" href="{{ url_for('dashboard') }}" role="button">Go to Dashboard</a>
+    {% endif %}
+</div>
+
+<div class="row">
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">For Donors</h5>
+                <p class="card-text">Have excess food? Register as a donor and help reduce food waste while supporting those in need.</p>
+                {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-primary animate__animated animate__fadeIn">Register as Donor</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">For Delivery Volunteers</h5>
+                <p class="card-text">Help bridge the gap between excess food and hunger by volunteering as a delivery person.</p>
+                {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-primary animate__animated animate__fadeIn">Register as Volunteer</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">For Administrators</h5>
+                <p class="card-text">Manage the system, track donations, and ensure food reaches those who need it most.</p>
+                {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('register') }}" class="btn btn-outline-primary animate__animated animate__fadeIn">Register as Admin</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

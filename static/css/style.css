@@ -1,0 +1,577 @@
+/* Main Styles for FoodLink Application */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* Ensure div content is visible */
+div {
+    color: #212529;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Ensure h4 headings are visible */
+h4 {
+    color: #212529;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    background-color: rgba(248, 249, 250, 0.95);
+    padding: 0.5rem;
+}
+
+/* Ensure h5 headings are visible */
+h5 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    background-color: rgba(248, 249, 250, 0.95);
+    padding: 0.5rem;
+}
+
+/* Ensure a links are visible */
+a {
+    color: #0056b3;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #003d7a;
+    text-decoration: underline;
+}
+
+/* Ensure span elements are visible */
+span {
+    color: #212529;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Navbar styling */
+.navbar {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #4a6bff 0%, #2c3e99 100%) !important;
+    padding: 0.8rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #ffffff !important;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.navbar-brand::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ffffff;
+    transition: width 0.3s ease;
+}
+
+.navbar-brand:hover::after {
+    width: 100%;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    margin: 0 0.2rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Card styling */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 25px;
+    border: none;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;
+}
+
+.card-body {
+    background-color: #ffffff;
+}
+
+.card-title {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.card-text {
+    color: #3a4a5c;
+}
+
+
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0 !important;
+    font-weight: 600;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: none;
+}
+
+/* Button styling */
+.btn {
+    border-radius: 6px;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    width: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4a6bff 0%, #2c3e99 100%);
+    border: none;
+    box-shadow: 0 4px 10px rgba(74, 107, 255, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #3a5bef 0%, #1c2e89 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(74, 107, 255, 0.4);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28d87b 0%, #18a85a 100%);
+    border: none;
+    box-shadow: 0 4px 10px rgba(40, 216, 123, 0.3);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #20c86e 0%, #10984d 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(40, 216, 123, 0.4);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffb347 0%, #ff8c00 100%);
+    border: none;
+    box-shadow: 0 4px 10px rgba(255, 179, 71, 0.3);
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #ffa337 0%, #ef7c00 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 179, 71, 0.4);
+}
+
+/* Form styling */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    padding: 0.6rem 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #4a6bff;
+    box-shadow: 0 0 0 0.2rem rgba(74, 107, 255, 0.25);
+}
+
+/* Badge styling */
+.badge {
+    font-weight: 500;
+    padding: 0.4em 0.7em;
+    border-radius: 6px;
+}
+
+.badge-pending {
+    background: #ffb347;
+    color: #212529;
+    animation: pulse 2s infinite;
+}
+
+.badge-assigned {
+    background: #4a6bff;
+    color: white;
+}
+
+.badge-in-transit {
+    background: #56ccf2;
+    color: #212529;
+}
+
+.badge-delivered {
+    background: #28d87b;
+    color: white;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 179, 71, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 179, 71, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 179, 71, 0);
+    }
+}
+
+/* Footer styling */
+.footer {
+    border-top: 1px solid #e9ecef;
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+}
+
+
+
+/* Jumbotron styling */
+.jumbotron {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    margin-bottom: 2rem;
+    border-left: 4px solid #4a6bff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+}
+
+.jumbotron h1 {
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.jumbotron p {
+    color: #3a4a5c;
+}
+
+/* Alert styling */
+.alert {
+    border-radius: 8px;
+    font-weight: 500;
+    background-color: #ffffff;
+}
+
+.alert-info {
+    background-color: #e3f2fd;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* Table styling */
+.table {
+    background-color: #ffffff;
+}
+
+.table th {
+    border-top: none;
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.table td {
+    color: #3a4a5c;
+    background-color: #ffffff;
+}
+
+/* Status badges */
+.badge-pending {
+    background: linear-gradient(135deg, #ffb347 0%, #ff8c00 100%);
+    color: #ffffff;
+    box-shadow: 0 2px 5px rgba(255, 179, 71, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.badge-assigned {
+    background: linear-gradient(135deg, #4a6bff 0%, #2c3e99 100%);
+    color: #ffffff;
+    box-shadow: 0 2px 5px rgba(74, 107, 255, 0.3);
+}
+
+.badge-in-transit {
+    background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 198, 255, 0.3);
+}
+
+.badge-delivered {
+    background: linear-gradient(135deg, #28d87b 0%, #18a85a 100%);
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(40, 216, 123, 0.3);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Dashboard cards */
+.card .display-4 {
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+/* Animation styles */
+.animated-link {
+    position: relative;
+    color: #4a6bff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.animated-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #4a6bff;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.animated-link:hover {
+    color: #2c3e99;
+}
+
+.animated-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Card hover effects */
+.card .card-body {
+    transition: all 0.3s ease;
+}
+
+.card:hover .card-body {
+    transform: translateY(-5px);
+}
+
+/* Form focus animation */
+.form-control:focus {
+    animation: formFocus 0.5s ease;
+}
+
+@keyframes formFocus {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .jumbotron h1 {
+        font-size: 2rem;
+    }
+    
+    .card .display-4 {
+        font-size: 2rem;
+    }
+}
+
+/* Simple theme overrides: no animations, simple colors, high readability */
+* {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Ensure any AOS/Animate.css elements are visible and static */
+[data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.animate__animated {
+  animation: none !important;
+}
+
+/* Base */
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+div {
+  background: transparent !important;
+}
+
+span {
+  background: transparent !important;
+  color: inherit;
+}
+
+/* Links */
+a {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Navbar: flat color, no fancy effects */
+.navbar {
+  background: #2c3e99 !important;
+  box-shadow: none;
+  padding: 0.8rem 1rem;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.95) !important;
+  background: transparent;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #ffffff !important;
+}
+
+/* Cards: flat, bordered, no hover lift */
+.card {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  box-shadow: none;
+  transform: none;
+  background-color: #ffffff;
+}
+
+.card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.card-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+/* Buttons: solid colors, no shadows */
+.btn {
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.btn::before {
+  content: none !important;
+}
+
+.btn-primary {
+  background: #2c3e99;
+  border: 1px solid #2c3e99;
+}
+
+.btn-primary:hover {
+  background: #25408f;
+}
+
+.btn-success {
+  background: #18a85a;
+  border: 1px solid #18a85a;
+}
+
+.btn-warning {
+  background: #ff8c00;
+  border: 1px solid #ff8c00;
+}
+
+/* Jumbotron: simple light block */
+.jumbotron {
+  background: #f8f9fa !important;
+  border: 1px solid #e9ecef;
+  border-left: none;
+  box-shadow: none;
+}
+
+/* Alerts: keep simple readable colors */
+.alert {
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+/* Badges: remove gradients/shadows */
+.badge-pending,
+.badge-assigned,
+.badge-in-transit,
+.badge-delivered {
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.badge-pending { background-color: #ffb347 !important; color: #212529 !important; }
+.badge-assigned { background-color: #4a6bff !important; color: #ffffff !important; }
+.badge-in-transit { background-color: #00c6ff !important; color: #ffffff !important; }
+.badge-delivered { background-color: #28d87b !important; color: #ffffff !important; }
+
+/* Forms */
+.form-control:focus {
+  border-color: #4a6bff;
+  box-shadow: none;
+}
+
+/* Kill hover transforms */
+.card .card-body {
+  transform: none;
+}

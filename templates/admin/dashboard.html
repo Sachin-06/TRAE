@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - FoodLink{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h2>Admin Dashboard</h2>
+        <p>Welcome, {{ current_user.username }}! Manage donations, deliveries, and recipients here.</p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Donations</h5>
+                <p class="card-text display-4">{{ total_donations }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Delivered Donations</h5>
+                <p class="card-text display-4">{{ delivered_donations }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Active Delivery Personnel</h5>
+                <p class="card-text display-4">{{ active_delivery_persons }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header bg-warning text-white">
+        <h5 class="mb-0">Pending Donations</h5>
+    </div>
+    <div class="card-body">
+        {% if pending_donations %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Donor</th>
+                            <th>Food Type</th>
+                            <th>Quantity</th>
+                            <th>Pickup Location</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for donation in pending_donations %}
+                            <tr>
+                                <td>{{ donation.id }}</td>
+                                <td>{{ donation.donor.username }}</td>
+                                <td>{{ donation.food_type }}</td>
+                                <td>{{ donation.quantity }}</td>
+                                <td>{{ donation.pickup_location }}</td>
+                                <td>{{ donation.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>
+                                    <a href="{{ url_for('assign_delivery', donation_id=donation.id) }}" class="btn btn-sm btn-primary">Assign</a>
+                                    <a href="{{ url_for('view_donation', id=donation.id) }}" class="btn btn-sm btn-outline-secondary">View</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                There are no pending donations at the moment.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">Active Deliveries</h5>
+    </div>
+    <div class="card-body">
+        {% if active_deliveries %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Delivery Person</th>
+                            <th>Food Type</th>
+                            <th>Recipient</th>
+                            <th>Status</th>
+                            <th>Date Assigned</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for delivery in active_deliveries %}
+                            <tr>
+                                <td>{{ delivery.id }}</td>
+                                <td>{{ delivery.delivery_person.username }}</td>
+                                <td>{{ delivery.donation.food_type }}</td>
+                                <td>{{ delivery.recipient.name }}</td>
+                                <td>
+                                    {% if delivery.status == 'assigned' %}
+                                        <span class="badge badge-info">Assigned</span>
+                                    {% elif delivery.status == 'on_the_way' %}
+                                        <span class="badge badge-primary">On the way</span>
+                                    {% elif delivery.status == 'picked_up' %}
+                                        <span class="badge badge-primary">Picked up</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ delivery.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>
+                                    <a href="{{ url_for('view_donation', id=delivery.donation.id) }}" class="btn btn-sm btn-outline-secondary">View</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                There are no active deliveries at the moment.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Recipients</h5>
+                <a href="{{ url_for('add_recipient') }}" class="btn btn-sm btn-light">Add New</a>
+            </div>
+            <div class="card-body">
+                {% if recipients %}
+                    <div class="list-group">
+                        {% for recipient in recipients %}
+                            <div class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{ recipient.name }}</h5>
+                                    <small>{{ recipient.recipient_type }}</small>
+                                </div>
+                                <p class="mb-1">{{ recipient.address }}</p>
+                                <small>Contact: {{ recipient.contact_person }} ({{ recipient.phone }})</small>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        No recipients have been added yet.
+                    </div>
+                {% endif %}
+                <div class="mt-3">
+                    <a href="{{ url_for('list_recipients') }}" class="btn btn-outline-success">Manage Recipients</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Delivery Personnel</h5>
+            </div>
+            <div class="card-body">
+                {% if delivery_persons %}
+                    <div class="list-group">
+                        {% for person in delivery_persons %}
+                            <div class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{ person.username }}</h5>
+                                    <small>{{ person.deliveries.count() }} deliveries</small>
+                                </div>
+                                <p class="mb-1">{{ person.email }}</p>
+                                <small>Phone: {{ person.phone }}</small>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        No delivery personnel have registered yet.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

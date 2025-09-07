@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Assign Delivery - FoodLink{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Assign Delivery</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <h5>Donation Information</h5>
+                        <table class="table">
+                            <tr>
+                                <th>Donation ID:</th>
+                                <td>{{ donation.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Donor:</th>
+                                <td>{{ donation.donor.username }}</td>
+                            </tr>
+                            <tr>
+                                <th>Food Type:</th>
+                                <td>{{ donation.food_type }}</td>
+                            </tr>
+                            <tr>
+                                <th>Quantity:</th>
+                                <td>{{ donation.quantity }}</td>
+                            </tr>
+                            <tr>
+                                <th>Freshness:</th>
+                                <td>{{ donation.freshness }}</td>
+                            </tr>
+                            <tr>
+                                <th>Pickup Location:</th>
+                                <td>{{ donation.pickup_location }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date Created:</th>
+                                <td>{{ donation.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <form method="post">
+                    <div class="form-group">
+                        <label for="delivery_person_id"><strong>Select Delivery Person</strong></label>
+                        <select name="delivery_person_id" id="delivery_person_id" class="form-control" required>
+                            <option value="">-- Select Delivery Person --</option>
+                            {% for person in delivery_persons %}
+                                <option value="{{ person.id }}">{{ person.username }} ({{ person.phone }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipient_id"><strong>Select Recipient</strong></label>
+                        <select name="recipient_id" id="recipient_id" class="form-control" required>
+                            <option value="">-- Select Recipient --</option>
+                            {% for recipient in recipients %}
+                                <option value="{{ recipient.id }}">{{ recipient.name }} ({{ recipient.recipient_type }}) - {{ recipient.address }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Assign Delivery</button>
+                        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

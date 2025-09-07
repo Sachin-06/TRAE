@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Add Donation - FoodLink{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Add New Donation</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.food_type.label }}
+                        {{ form.food_type(class="form-control") }}
+                        <small class="form-text text-muted">Describe the type of food (e.g., "Cooked meals", "Bread", "Vegetables")</small>
+                        {% for error in form.food_type.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.quantity.label }}
+                        {{ form.quantity(class="form-control") }}
+                        <small class="form-text text-muted">Specify quantity (e.g., "5 kg", "10 meals", "3 boxes")</small>
+                        {% for error in form.quantity.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.freshness.label }}
+                        {{ form.freshness(class="form-control") }}
+                        {% for error in form.freshness.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.pickup_location.label }}
+                        {{ form.pickup_location(class="form-control") }}
+                        <small class="form-text text-muted">Leave blank to use your registered address: {{ current_user.address }}</small>
+                        {% for error in form.pickup_location.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-success") }}
+                        <a href="{{ url_for('donor_dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

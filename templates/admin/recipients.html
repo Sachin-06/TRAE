@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Recipients - FoodLink{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>Recipients</h2>
+        <p>Manage recipient organizations here.</p>
+    </div>
+    <div class="col-md-4 text-right">
+        <a href="{{ url_for('add_recipient') }}" class="btn btn-success">Add New Recipient</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Recipient Organizations</h5>
+    </div>
+    <div class="card-body">
+        {% if recipients %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Contact Person</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Deliveries</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for recipient in recipients %}
+                            <tr>
+                                <td>{{ recipient.id }}</td>
+                                <td>{{ recipient.name }}</td>
+                                <td>{{ recipient.recipient_type }}</td>
+                                <td>{{ recipient.contact_person }}</td>
+                                <td>{{ recipient.phone }}</td>
+                                <td>{{ recipient.address }}</td>
+                                <td>{{ recipient.deliveries.count() }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                No recipients have been added yet. Click the "Add New Recipient" button to get started!
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

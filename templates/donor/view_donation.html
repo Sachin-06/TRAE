@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}View Donation - FoodLink{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Donation Details</h4>
+                <span class="badge {% if donation.status == 'pending' %}badge-warning{% elif donation.status == 'assigned' %}badge-info{% elif donation.status == 'in_transit' %}badge-primary{% elif donation.status == 'delivered' %}badge-success{% endif %}">
+                    {{ donation.status|capitalize }}
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Donation Information</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <th>Donation ID:</th>
+                                <td>{{ donation.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Food Type:</th>
+                                <td>{{ donation.food_type }}</td>
+                            </tr>
+                            <tr>
+                                <th>Quantity:</th>
+                                <td>{{ donation.quantity }}</td>
+                            </tr>
+                            <tr>
+                                <th>Freshness:</th>
+                                <td>{{ donation.freshness }}</td>
+                            </tr>
+                            <tr>
+                                <th>Pickup Location:</th>
+                                <td>{{ donation.pickup_location }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date Created:</th>
+                                <td>{{ donation.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Delivery Information</h5>
+                        {% if donation.delivery %}
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th>Delivery Status:</th>
+                                    <td>
+                                        <span class="badge {% if donation.delivery.status == 'assigned' %}badge-info{% elif donation.delivery.status == 'on_the_way' %}badge-primary{% elif donation.delivery.status == 'picked_up' %}badge-primary{% elif donation.delivery.status == 'delivered' %}badge-success{% endif %}">
+                                            {{ donation.delivery.status|replace('_', ' ')|capitalize }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% if donation.delivery.pickup_time %}
+                                <tr>
+                                    <th>Pickup Time:</th>
+                                    <td>{{ donation.delivery.pickup_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if donation.delivery.delivery_time %}
+                                <tr>
+                                    <th>Delivery Time:</th>
+                                    <td>{{ donation.delivery.delivery_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if donation.delivery.recipient %}
+                                <tr>
+                                    <th>Recipient:</th>
+                                    <td>{{ donation.delivery.recipient.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Recipient Type:</th>
+                                    <td>{{ donation.delivery.recipient.recipient_type }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if donation.delivery.confirmation_data and donation.status == 'delivered' %}
+                                <tr>
+                                    <th>Confirmation:</th>
+                                    <td>
+                                        <strong>{{ donation.delivery.confirmation_type|capitalize }}</strong>: 
+                                        {{ donation.delivery.confirmation_data }}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            </table>
+                        {% else %}
+                            <div class="alert alert-info">
+                                This donation has not been assigned for delivery yet.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a href="{{ url_for('donor_dashboard') }}" class="btn btn-outline-primary">Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

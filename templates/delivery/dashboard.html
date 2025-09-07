@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Delivery Dashboard - FoodLink{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h2>Delivery Dashboard</h2>
+        <p>Welcome, {{ current_user.username }}! Manage your assigned deliveries here.</p>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">My Assigned Deliveries</h5>
+    </div>
+    <div class="card-body">
+        {% if deliveries %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Food Type</th>
+                            <th>Quantity</th>
+                            <th>Pickup Location</th>
+                            <th>Recipient</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for delivery in deliveries %}
+                            <tr>
+                                <td>{{ delivery.id }}</td>
+                                <td>{{ delivery.donation.food_type }}</td>
+                                <td>{{ delivery.donation.quantity }}</td>
+                                <td>{{ delivery.donation.pickup_location }}</td>
+                                <td>{{ delivery.recipient.name }}</td>
+                                <td>
+                                    {% if delivery.status == 'assigned' %}
+                                        <span class="badge badge-info">Assigned</span>
+                                    {% elif delivery.status == 'on_the_way' %}
+                                        <span class="badge badge-primary">On the way</span>
+                                    {% elif delivery.status == 'picked_up' %}
+                                        <span class="badge badge-primary">Picked up</span>
+                                    {% elif delivery.status == 'delivered' %}
+                                        <span class="badge badge-success">Delivered</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if delivery.status != 'delivered' %}
+                                        <a href="{{ url_for('update_delivery', id=delivery.id) }}" class="btn btn-sm btn-primary">Update Status</a>
+                                    {% else %}
+                                        <button class="btn btn-sm btn-success" disabled>Completed</button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                You don't have any assigned deliveries at the moment.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Delivery Status Guide</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Assigned
+                        <span class="badge badge-info">Waiting for pickup</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        On the way
+                        <span class="badge badge-primary">Going to pickup location</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Picked up
+                        <span class="badge badge-primary">Food collected, delivering</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Delivered
+                        <span class="badge badge-success">Successfully delivered</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Your Impact</h5>
+            </div>
+            <div class="card-body">
+                <p>Total deliveries: <strong>{{ deliveries|length }}</strong></p>
+                <p>Completed deliveries: <strong>{{ deliveries|selectattr('status', 'equalto', 'delivered')|list|length }}</strong></p>
+                <p>Thank you for helping connect excess food with those in need!</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
